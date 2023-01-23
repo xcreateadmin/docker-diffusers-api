@@ -96,16 +96,16 @@ ENV HF_AUTH_TOKEN=${HF_AUTH_TOKEN}
 # "CompVis/stable-diffusion-v1-4", "hakurei/waifu-diffusion",
 # "stabilityai/stable-diffusion-2",
 # "stabilityai/stable-diffusion-2-inpainting" etc.
-ARG MODEL_ID="stabilityai/stable-diffusion-2"
+ARG MODEL_ID="rdcoder/rd-model-1"
 ENV MODEL_ID=${MODEL_ID}
 
 # "" = model default.
-ARG PRECISION="fp16"
+ARG PRECISION=""
 ENV PRECISION=${PRECISION}
 ADD precision.py .
 
 # ARG PIPELINE="StableDiffusionInpaintPipeline"
-ARG PIPELINE="ALL"
+ARG PIPELINE="StableDiffusionPipeline"
 ENV PIPELINE=${PIPELINE}
 
 ARG USE_DREAMBOOTH=0
