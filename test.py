@@ -62,8 +62,8 @@ def runTest(name, banana, extraCallInputs, extraModelInputs):
 
     start = time.time()
     if banana:
-        BANANA_API_KEY = os.getenv("BANANA_API_KEY")
-        BANANA_MODEL_KEY = os.getenv("BANANA_MODEL_KEY")
+        BANANA_API_KEY = "f35cfb9d-f410-4c00-93aa-64e459b42e58"
+        BANANA_MODEL_KEY = "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"
         if BANANA_MODEL_KEY == None or BANANA_API_KEY == None:
             print("Error: BANANA_API_KEY or BANANA_MODEL_KEY not set, aborting...")
             sys.exit(1)
@@ -155,130 +155,130 @@ def runTest(name, banana, extraCallInputs, extraModelInputs):
 test(
     "txt2img",
     {
-        "modelInputs": {"prompt": "realistic field of grass"},
+        "modelInputs": {"prompt": "red car, 8K, HD"},
         "callInputs": {
-            "MODEL_ID": "runwayml/stable-diffusion-v1-5",
+            "MODEL_ID": "rdcoder/rd-model-1",
             "PIPELINE": "StableDiffusionPipeline",
-            "SCHEDULER": "LMSDiscreteScheduler",
+            "SCHEDULER": "PNDMScheduler",
             # "xformers_memory_efficient_attention": False,
         },
     },
 )
 
 # multiple images
-test(
-    "txt2img-multiple",
-    {
-        "modelInputs": {
-            "prompt": "realistic field of grass",
-            "num_images_per_prompt": 2,
-        },
-        "callInputs": {
-            "MODEL_ID": "runwayml/stable-diffusion-v1-5",
-            "PIPELINE": "StableDiffusionPipeline",
-            "SCHEDULER": "LMSDiscreteScheduler",
-        },
-    },
-)
+# test(
+#     "txt2img-multiple",
+#     {
+#         "modelInputs": {
+#             "prompt": "realistic field of grass",
+#             "num_images_per_prompt": 2,
+#         },
+#         "callInputs": {
+#             "MODEL_ID": "runwayml/stable-diffusion-v1-5",
+#             "PIPELINE": "StableDiffusionPipeline",
+#             "SCHEDULER": "LMSDiscreteScheduler",
+#         },
+#     },
+# )
 
 
-test(
-    "img2img",
-    {
-        "modelInputs": {
-            "prompt": "A fantasy landscape, trending on artstation",
-            "init_image": b64encode_file("sketch-mountains-input.jpg"),
-        },
-        "callInputs": {
-            "MODEL_ID": "runwayml/stable-diffusion-v1-5",
-            "PIPELINE": "StableDiffusionImg2ImgPipeline",
-            "SCHEDULER": "LMSDiscreteScheduler",
-        },
-    },
-)
+# test(
+#     "img2img",
+#     {
+#         "modelInputs": {
+#             "prompt": "A fantasy landscape, trending on artstation",
+#             "init_image": b64encode_file("sketch-mountains-input.jpg"),
+#         },
+#         "callInputs": {
+#             "MODEL_ID": "runwayml/stable-diffusion-v1-5",
+#             "PIPELINE": "StableDiffusionImg2ImgPipeline",
+#             "SCHEDULER": "LMSDiscreteScheduler",
+#         },
+#     },
+# )
 
-test(
-    "inpaint-v1-4",
-    {
-        "modelInputs": {
-            "prompt": "a cat sitting on a bench",
-            "init_image": b64encode_file("overture-creations-5sI6fQgYIuo.png"),
-            "mask_image": b64encode_file("overture-creations-5sI6fQgYIuo_mask.png"),
-        },
-        "callInputs": {
-            "MODEL_ID": "CompVis/stable-diffusion-v1-4",
-            "PIPELINE": "StableDiffusionInpaintPipelineLegacy",
-            "SCHEDULER": "DDIMScheduler",  # Note, as of diffusers 0.3.0, no LMS yet
-        },
-    },
-)
+# test(
+#     "inpaint-v1-4",
+#     {
+#         "modelInputs": {
+#             "prompt": "a cat sitting on a bench",
+#             "init_image": b64encode_file("overture-creations-5sI6fQgYIuo.png"),
+#             "mask_image": b64encode_file("overture-creations-5sI6fQgYIuo_mask.png"),
+#         },
+#         "callInputs": {
+#             "MODEL_ID": "CompVis/stable-diffusion-v1-4",
+#             "PIPELINE": "StableDiffusionInpaintPipelineLegacy",
+#             "SCHEDULER": "DDIMScheduler",  # Note, as of diffusers 0.3.0, no LMS yet
+#         },
+#     },
+# )
 
-test(
-    "inpaint-sd",
-    {
-        "modelInputs": {
-            "prompt": "a cat sitting on a bench",
-            "image": b64encode_file("overture-creations-5sI6fQgYIuo.png"),
-            "mask_image": b64encode_file("overture-creations-5sI6fQgYIuo_mask.png"),
-        },
-        "callInputs": {
-            "MODEL_ID": "runwayml/stable-diffusion-inpainting",
-            "PIPELINE": "StableDiffusionInpaintPipeline",
-            "SCHEDULER": "DDIMScheduler",  # Note, as of diffusers 0.3.0, no LMS yet
-        },
-    },
-)
+# test(
+#     "inpaint-sd",
+#     {
+#         "modelInputs": {
+#             "prompt": "a cat sitting on a bench",
+#             "image": b64encode_file("overture-creations-5sI6fQgYIuo.png"),
+#             "mask_image": b64encode_file("overture-creations-5sI6fQgYIuo_mask.png"),
+#         },
+#         "callInputs": {
+#             "MODEL_ID": "runwayml/stable-diffusion-inpainting",
+#             "PIPELINE": "StableDiffusionInpaintPipeline",
+#             "SCHEDULER": "DDIMScheduler",  # Note, as of diffusers 0.3.0, no LMS yet
+#         },
+#     },
+# )
 
-if os.getenv("USE_PATCHMATCH"):
-    test(
-        "outpaint",
-        {
-            "modelInputs": {
-                "prompt": "girl with a pearl earing standing in a big room",
-                "init_image": b64encode_file(
-                    "girl_with_pearl_earing_outpainting_in.png"
-                ),
-            },
-            "callInputs": {
-                "MODEL_ID": "CompVis/stable-diffusion-v1-4",
-                "PIPELINE": "StableDiffusionInpaintPipelineLegacy",
-                "SCHEDULER": "DDIMScheduler",  # Note, as of diffusers 0.3.0, no LMS yet
-                "FILL_MODE": "patchmatch",
-            },
-        },
-    )
+# if os.getenv("USE_PATCHMATCH"):
+#     test(
+#         "outpaint",
+#         {
+#             "modelInputs": {
+#                 "prompt": "girl with a pearl earing standing in a big room",
+#                 "init_image": b64encode_file(
+#                     "girl_with_pearl_earing_outpainting_in.png"
+#                 ),
+#             },
+#             "callInputs": {
+#                 "MODEL_ID": "CompVis/stable-diffusion-v1-4",
+#                 "PIPELINE": "StableDiffusionInpaintPipelineLegacy",
+#                 "SCHEDULER": "DDIMScheduler",  # Note, as of diffusers 0.3.0, no LMS yet
+#                 "FILL_MODE": "patchmatch",
+#             },
+#         },
+#     )
 
-# Actually we just want this to be a non-default test?
-if True or os.getenv("USE_DREAMBOOTH"):
-    test(
-        "dreambooth",
-        # If you're calling from the command line, don't forget to a
-        # specify a destination if you want your fine-tuned model to
-        # be uploaded somewhere at the end.
-        {
-            "modelInputs": {
-                "instance_prompt": "a photo of sks dog",
-                "instance_images": list(
-                    map(
-                        b64encode_file,
-                        list(Path("tests/fixtures/dreambooth").iterdir()),
-                    )
-                ),
-                # Option 1: upload to HuggingFace (see notes below)
-                # Make sure your HF API token has read/write access.
-                # "hub_model_id": "huggingFaceUsername/targetModelName",
-                # "push_to_hub": True,
-            },
-            "callInputs": {
-                "MODEL_ID": "runwayml/stable-diffusion-v1-5",
-                "PIPELINE": "StableDiffusionPipeline",
-                "SCHEDULER": "DDPMScheduler",
-                "train": "dreambooth",
-                # Option 2: store on S3.  Note the **s3:///* (x3).  See notes below.
-                # "dest_url": "s3:///bucket/filename.tar.zst".
-            },
-        },
-    )
+# # Actually we just want this to be a non-default test?
+# if True or os.getenv("USE_DREAMBOOTH"):
+#     test(
+#         "dreambooth",
+#         # If you're calling from the command line, don't forget to a
+#         # specify a destination if you want your fine-tuned model to
+#         # be uploaded somewhere at the end.
+#         {
+#             "modelInputs": {
+#                 "instance_prompt": "a photo of sks dog",
+#                 "instance_images": list(
+#                     map(
+#                         b64encode_file,
+#                         list(Path("tests/fixtures/dreambooth").iterdir()),
+#                     )
+#                 ),
+#                 # Option 1: upload to HuggingFace (see notes below)
+#                 # Make sure your HF API token has read/write access.
+#                 # "hub_model_id": "huggingFaceUsername/targetModelName",
+#                 # "push_to_hub": True,
+#             },
+#             "callInputs": {
+#                 "MODEL_ID": "runwayml/stable-diffusion-v1-5",
+#                 "PIPELINE": "StableDiffusionPipeline",
+#                 "SCHEDULER": "DDPMScheduler",
+#                 "train": "dreambooth",
+#                 # Option 2: store on S3.  Note the **s3:///* (x3).  See notes below.
+#                 # "dest_url": "s3:///bucket/filename.tar.zst".
+#             },
+#         },
+#     )
 
 
 def main(tests_to_run, banana, extraCallInputs, extraModelInputs):
@@ -302,7 +302,8 @@ if __name__ == "__main__":
         "--xmfe",
         required=False,
         default=None,
-        type=lambda x: bool(distutils.util.strtobool(x)),
+        # type=lambda x: bool(distutils.util.strtobool(x)),
+        type=lambda x: bool(argparse.strtobool(x)),
     )
     parser.add_argument("--scheduler", required=False, type=str)
     parser.add_argument("--call-arg", action="append", type=str)
