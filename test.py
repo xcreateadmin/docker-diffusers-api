@@ -63,7 +63,7 @@ def runTest(name, banana, extraCallInputs, extraModelInputs):
     start = time.time()
     if banana:
         BANANA_API_KEY = "f35cfb9d-f410-4c00-93aa-64e459b42e58"
-        BANANA_MODEL_KEY = "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"
+        BANANA_MODEL_KEY = "751c56c7-e7e1-4155-8a68-8375cb4cf9c5"
         if BANANA_MODEL_KEY == None or BANANA_API_KEY == None:
             print("Error: BANANA_API_KEY or BANANA_MODEL_KEY not set, aborting...")
             sys.exit(1)
@@ -302,8 +302,8 @@ if __name__ == "__main__":
         "--xmfe",
         required=False,
         default=None,
-        # type=lambda x: bool(distutils.util.strtobool(x)),
-        type=lambda x: bool(argparse.strtobool(x)),
+        type=lambda x: bool(distutils.util.strtobool(x)),
+         
     )
     parser.add_argument("--scheduler", required=False, type=str)
     parser.add_argument("--call-arg", action="append", type=str)
