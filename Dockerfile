@@ -96,7 +96,7 @@ ENV HF_AUTH_TOKEN=${HF_AUTH_TOKEN}
 # "CompVis/stable-diffusion-v1-4", "hakurei/waifu-diffusion",
 # "stabilityai/stable-diffusion-2",
 # "stabilityai/stable-diffusion-2-inpainting" etc.
-ARG MODEL_ID="rdcoder/rd-model-1"
+ARG MODEL_ID="rdcoder/rd-model-test-v2"
 ENV MODEL_ID=${MODEL_ID}
 
 # "" = model default.
